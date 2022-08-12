@@ -1,4 +1,5 @@
-import express, { Application, Request, Response } from 'express';
+import 'dotenv/config';
+import express, { Application } from 'express';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
@@ -6,16 +7,13 @@ import './models/User';
 import './services/passport';
 import authRoute from './routes/authRoutes';
 
-// @ts-ignore
-import keys from '../config/keys';
-
-mongoose.connect(keys.mongoURI);
+mongoose.connect(process.env.MONGO_URI!);
 const app: Application = express();
 
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey],
+    keys: [process.env.COOKIE_KEY!],
   })
 );
 
