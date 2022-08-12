@@ -9,7 +9,6 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-WORKDIR ./dist
 
 ENV PORT=8080
 
