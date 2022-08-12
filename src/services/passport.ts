@@ -1,8 +1,6 @@
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 import mongoose from 'mongoose';
-// @ts-ignore
-import keys from '../../config/keys';
 
 const User = mongoose.model('users');
 
@@ -23,8 +21,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy.Strategy(
     {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
+      clientID: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
