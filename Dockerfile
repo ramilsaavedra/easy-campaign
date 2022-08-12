@@ -10,8 +10,12 @@ COPY . .
 
 RUN npm run build
 
+COPY .env ./dist/
+WORKDIR ./dist
+
 ENV PORT=8080
 
 EXPOSE 8080
+
 
 CMD ["npm", "start"]
