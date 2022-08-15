@@ -9,13 +9,12 @@ type User = {
 };
 
 passport.serializeUser((user: User, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then((user) => {
-    done(null, user);
-  });
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 passport.use(
@@ -24,24 +23,23 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       callbackURL: '/auth/google/callback',
+      proxy: true,
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({
         providerId: profile.id,
-      }).then((existingUser) => {
-        if (existingUser) {
-          done(null, existingUser);
-        } else {
-          new User({
-            providerId: profile.id,
-            provider: profile.provider,
-          })
-            .save()
-            .then((user) => {
-              done(null, user);
-            });
-        }
       });
+
+      if (existingUser) {
+        return done(null, existingUser);
+      }
+
+      const newUser = await new User({
+        providerId: profile.id,
+        provider: profile.provider,
+      }).save();
+
+      done(null, newUser);
     }
   )
 );
