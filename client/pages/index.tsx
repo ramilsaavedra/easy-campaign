@@ -12,6 +12,11 @@ const Home: NextPage = () => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <main className='custom-container mx-auto mt-24'>
+        <div>
+          <h1 className='text-6xl'>Easy Campaign</h1>
+        </div>
+      </main>
     </div>
   );
 };
