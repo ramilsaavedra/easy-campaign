@@ -66,7 +66,10 @@ const Login: React.FC = () => {
             <hr className='flex-1' />
           </div> */}
           <Link href='/auth/google'>
-            <div className='w-full bg-gray-100 py-2 px-5 flex items-center justify-center rounded cursor-pointer transition-all duration-200 ease-in-out hover:bg-gray-200'>
+            <div
+              id='googleSignIn'
+              className='w-full bg-gray-100 py-2 px-5 flex items-center justify-center rounded cursor-pointer transition-all duration-200 ease-in-out hover:bg-gray-200'
+            >
               <svg
                 className='mr-4'
                 width='32'

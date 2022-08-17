@@ -23,7 +23,9 @@ const Home: NextPage = () => {
           <ul className='flex-1 flex items-center justify-end gap-6'>
             <li>
               <Link href='/login'>
-                <div className='custom-primary-button'>Dashboard</div>
+                <div id='loginButton' className='custom-primary-button'>
+                  Dashboard
+                </div>
               </Link>
             </li>
             {/* <li className='custom-primary-button'>
