@@ -1,14 +1,25 @@
-import type { NextPage } from 'next';
+import React, { useEffect } from 'react';
+import Router from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import Header from '../layout/Header';
+import useUser from '../lib/user/use-user';
 
-const Login: NextPage = () => {
+const Login: React.FC = () => {
+  const { user, loading, loggedOut, mutate } = useUser();
+
+  useEffect(() => {
+    if (user && user.data) {
+      Router.replace('/dashboard');
+    }
+  }, [user]);
+
   return (
-    <div>
+    <>
       <Head>
         <title>Easy Campaign | Login</title>
-        <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Header />
       <main className='custom-container mx-auto mt-[100px]'>
         <div className='w-[500px] px-7 py-5 mx-auto rounded flex flex-col gap-4 bg-white relative mt-5 border'>
           <img
@@ -21,7 +32,7 @@ const Login: NextPage = () => {
           <p className='text-center text-sm text-gray-800'>
             Log in to EasyCampaign to continue
           </p>
-          <div>
+          {/* <div>
             <label
               htmlFor='email'
               className='block text-sm font-medium text-gray-700 mb-2'
@@ -53,7 +64,7 @@ const Login: NextPage = () => {
             <hr className='flex-1' />
             <span className='px-5 text-sm text-gray-500'>or</span>
             <hr className='flex-1' />
-          </div>
+          </div> */}
           <Link href='/auth/google'>
             <div className='w-full bg-gray-100 py-2 px-5 flex items-center justify-center rounded cursor-pointer transition-all duration-200 ease-in-out hover:bg-gray-200'>
               <svg
@@ -86,7 +97,7 @@ const Login: NextPage = () => {
           </Link>
         </div>
       </main>
-    </div>
+    </>
   );
 };
 
