@@ -10,8 +10,12 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/auth/google',
-        destination: 'http://localhost:5000/auth/google',
+        source: '/auth/:path*',
+        destination: 'http://localhost:5000/auth/:path*',
+      },
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5000/api/:path*',
       },
     ];
   },

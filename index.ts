@@ -8,6 +8,7 @@ import './services/passport';
 import authRoute from './routes/authRoutes';
 
 mongoose.connect(process.env.MONGO_URI!);
+
 const app: Application = express();
 
 app.use(
